@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.106
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Albo1125.Common", "Albo1125.Common\Albo1125.Common.csproj", "{83649ABE-AD6D-4997-BED2-B037A02F0926}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Debug|x64 = Debug|x64
+		Release|Any CPU = Release|Any CPU
+		Release|x64 = Release|x64
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{83649ABE-AD6D-4997-BED2-B037A02F0926}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{83649ABE-AD6D-4997-BED2-B037A02F0926}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{83649ABE-AD6D-4997-BED2-B037A02F0926}.Debug|x64.ActiveCfg = Debug|x64
+		{83649ABE-AD6D-4997-BED2-B037A02F0926}.Debug|x64.Build.0 = Debug|x64
+		{83649ABE-AD6D-4997-BED2-B037A02F0926}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{83649ABE-AD6D-4997-BED2-B037A02F0926}.Release|Any CPU.Build.0 = Release|Any CPU
+		{83649ABE-AD6D-4997-BED2-B037A02F0926}.Release|x64.ActiveCfg = Release|x64
+		{83649ABE-AD6D-4997-BED2-B037A02F0926}.Release|x64.Build.0 = Release|x64
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {AB46A49E-2196-438C-94FE-6C28C6F2FADA}
+	EndGlobalSection
+EndGlobal
