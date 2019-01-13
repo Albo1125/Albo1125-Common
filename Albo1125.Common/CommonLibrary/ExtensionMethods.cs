@@ -446,6 +446,25 @@ namespace Albo1125.Common.CommonLibrary
         {
             NativeFunction.Natives.SET_VEHICLE_COLOURS(v, (int)color.PrimaryColor, (int)color.SecondaryColor);
         }
+
+        /// <summary>
+        /// Randomise the license plate to avoid excessively frequent debug plates from showing.
+        /// </summary>
+        public static void RandomiseLicencePlate(Vehicle vehicle)
+        {
+            if (vehicle)
+            {
+                vehicle.LicensePlate = MathHelper.GetRandomInteger(9).ToString() +
+                                       MathHelper.GetRandomInteger(9).ToString() +
+                                       Convert.ToChar(MathHelper.GetRandomInteger(0, 25) + 65) +
+                                       Convert.ToChar(MathHelper.GetRandomInteger(0, 25) + 65) +
+                                       Convert.ToChar(MathHelper.GetRandomInteger(0, 25) + 65) +
+                                       MathHelper.GetRandomInteger(9).ToString() +
+                                       MathHelper.GetRandomInteger(9).ToString() +
+                                       MathHelper.GetRandomInteger(9).ToString();
+            }
+        }
+
     }
 
 
