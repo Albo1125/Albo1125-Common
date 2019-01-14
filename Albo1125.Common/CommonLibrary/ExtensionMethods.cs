@@ -450,7 +450,7 @@ namespace Albo1125.Common.CommonLibrary
         /// <summary>
         /// Randomise the license plate to avoid excessively frequent debug plates from showing.
         /// </summary>
-        public static void RandomiseLicencePlate(Vehicle vehicle)
+        public static void RandomiseLicencePlate(this Vehicle vehicle)
         {
             if (vehicle)
             {
@@ -462,6 +462,9 @@ namespace Albo1125.Common.CommonLibrary
                                        MathHelper.GetRandomInteger(9).ToString() +
                                        MathHelper.GetRandomInteger(9).ToString() +
                                        MathHelper.GetRandomInteger(9).ToString();
+#if DEBUG
+                Game.LogTrivial($"Set {vehicle.Model.Name} license plate to {vehicle.LicensePlate}");
+#endif
             }
         }
 
