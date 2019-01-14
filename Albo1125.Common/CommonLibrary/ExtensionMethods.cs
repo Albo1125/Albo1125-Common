@@ -493,7 +493,7 @@ namespace Albo1125.Common.CommonLibrary
         /// </summary>
         /// <param name="vehicle"></param>
         /// <returns></returns>
-        public static bool VehicleModelIsELS(Vehicle vehicle)
+        public static bool VehicleModelIsELS(this Vehicle vehicle)
         {
             if (vehicle)
             {
