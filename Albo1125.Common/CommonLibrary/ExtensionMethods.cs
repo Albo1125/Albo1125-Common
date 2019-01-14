@@ -8,6 +8,7 @@ using System.Drawing;
 using System.Windows.Forms;
 using Albo1125.Common.CommonLibrary;
 using System.Globalization;
+using System.IO;
 
 namespace Albo1125.Common.CommonLibrary
 {
@@ -466,6 +467,59 @@ namespace Albo1125.Common.CommonLibrary
                 Game.LogTrivial($"Set {vehicle.Model.Name} license plate to {vehicle.LicensePlate}");
 #endif
             }
+        }
+
+        /// Cache the result of whether a vehicle is an ELS vehicle.
+        /// </summary>
+        private static Dictionary<Model, bool> vehicleModelELSCache = new Dictionary<Model, bool>();
+
+        /// <summary>
+        /// Determine whether the passed vehicle model is an ELS vehicle.
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        public static bool VehicleModelIsELS(Model model)
+        {
+            try
+            {
+                if (vehicleModelELSCache.ContainsKey(model))
+                {
+                    return vehicleModelELSCache[model];
+                }
+
+                if (!Directory.Exists(Path.Combine(Directory.GetCurrentDirectory(), "ELS")))
+                {
+                    // no ELS installation at all
+                    vehicleModelELSCache.Add(model, false);
+                    return false;
+                }
+
+                IEnumerable<string> elsFiles = Directory.EnumerateFiles(
+                    Path.Combine(Directory.GetCurrentDirectory(), "ELS"),
+                    $"{model.Name}.xml", SearchOption.AllDirectories);
+
+                vehicleModelELSCache.Add(model, elsFiles.Any());
+                return vehicleModelELSCache[model];
+            }
+            catch (Exception e)
+            {
+                Game.LogTrivial($"Failed to determine if a vehicle model '{model}' was ELS-enabled: {e}");
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// Determine whether the passed vehicle is an ELS vehicle.
+        /// </summary>
+        /// <param name="vehicle"></param>
+        /// <returns></returns>
+        public static bool VehicleModelIsELS(this Vehicle vehicle)
+        {
+            if (vehicle)
+            {
+                return VehicleModelIsELS(vehicle.Model);
+            }
+            return false;
         }
 
     }
