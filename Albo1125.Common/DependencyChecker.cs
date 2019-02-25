@@ -69,9 +69,9 @@ namespace Albo1125.Common
                             Version InstalledLSPDFRVer = new Version(FileVersionInfo.GetVersionInfo("Plugins/LSPD First Response.dll").ProductVersion);
                             if (InstalledLSPDFRVer.CompareTo(MadeForLSPDFRVersion) != 0)
                             {
-                                Game.LogTrivial("Wrong LSPD First Response.dll version detected. To run this mod, you need LSPDFR " + MadeForLSPDFRVersion.ToString());
-                                Plugins_URL_Errors.Add(CallingPlugin, installationVideoURL, "Detected invalid LSPD First Response.dll version. To run this mod, you need LSPDFR " + MadeForLSPDFRVersion.ToString());
-                                CheckPassedSuccessfully = false;
+                                Game.LogTrivial(CallingPlugin + " compatibility warning: Different LSPD First Response.dll version detected, use at your own risk! This mod was made for LSPDFR " + MadeForLSPDFRVersion.ToString());
+                                //Plugins_URL_Errors.Add(CallingPlugin, installationVideoURL, "Detected invalid LSPD First Response.dll version. To run this mod, you need LSPDFR " + MadeForLSPDFRVersion.ToString());
+                                //CheckPassedSuccessfully = false;
                             }
                         }
                         else

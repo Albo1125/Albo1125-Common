@@ -449,6 +449,26 @@ namespace Albo1125.Common.CommonLibrary
         }
 
         /// <summary>
+        /// Randomise the license plate to avoid excessively frequent debug plates from showing.
+        /// </summary>
+        public static void RandomiseLicencePlate(this Vehicle vehicle)
+        {
+            if (vehicle)
+            {
+                vehicle.LicensePlate = MathHelper.GetRandomInteger(9).ToString() +
+                                       MathHelper.GetRandomInteger(9).ToString() +
+                                       Convert.ToChar(MathHelper.GetRandomInteger(0, 25) + 65) +
+                                       Convert.ToChar(MathHelper.GetRandomInteger(0, 25) + 65) +
+                                       Convert.ToChar(MathHelper.GetRandomInteger(0, 25) + 65) +
+                                       MathHelper.GetRandomInteger(9).ToString() +
+                                       MathHelper.GetRandomInteger(9).ToString() +
+                                       MathHelper.GetRandomInteger(9).ToString();
+#if DEBUG
+                Game.LogTrivial($"Set {vehicle.Model.Name} license plate to {vehicle.LicensePlate}");
+#endif
+            }
+        }
+
         /// Cache the result of whether a vehicle is an ELS vehicle.
         /// </summary>
         private static Dictionary<Model, bool> vehicleModelELSCache = new Dictionary<Model, bool>();
