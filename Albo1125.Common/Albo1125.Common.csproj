@@ -86,6 +86,7 @@
     <Compile Include="AppDomainHelper.cs" />
     <Compile Include="CommonLibrary\CommonVariables.cs" />
     <Compile Include="CommonLibrary\ExtensionMethodsLSPDFR.cs" />
+    <Compile Include="CommonLibrary\FriendlyKeys.cs" />
     <Compile Include="CommonLibrary\Popup.cs" />
     <Compile Include="CommonLibrary\SpawnPoint.cs" />
     <Compile Include="DependencyChecker.cs" />
