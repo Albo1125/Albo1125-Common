@@ -12,8 +12,10 @@ namespace Albo1125.Common.CommonLibrary
         public static string GetFriendlyNames(Keys modifier, Keys key, bool format = true, char format_color = 'b')
         {
             string output = "";
-            if (modifier != null && modifier != Keys.None)
+            if (modifier != Keys.None)
+            {
                 output += GetFriendlyName(modifier, format, format_color) + " + ";
+            }
             output += GetFriendlyName(key, format, format_color);
             return output;
         }
@@ -23,9 +25,13 @@ namespace Albo1125.Common.CommonLibrary
             string key_name = key.ToString();
             bool key_found = KeysToFriendlyName.TryGetValue(key, out key_name);
             if (format)
+            {
                 return "~" + format_color + "~~h~" + key_name + "~h~~w~";
+            }
             else
+            {
                 return key_name;
+            }
         }
 
         public static string FriendlyName(this Keys key, bool format = true, char format_color = 'b')
