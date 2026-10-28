@@ -20,6 +20,8 @@
 
     <!-- LSPDFR isn't on NuGet: copy LSPD First Response.dll from your LSPDFR download into dependencies\. -->
     <LspdfrDllPath Condition="'$(LspdfrDllPath)' == ''">$(MSBuildThisFileDirectory)dependencies\LSPD First Response.dll</LspdfrDllPath>
+    <!-- Falls back to a DLLS folder shared by projects next to this repository. -->
+    <LspdfrDllPath Condition="!Exists('$(LspdfrDllPath)') And Exists('$(MSBuildThisFileDirectory)..\..\DLLS\LSPD First Response.dll')">$(MSBuildThisFileDirectory)..\..\DLLS\LSPD First Response.dll</LspdfrDllPath>
     <RphSdkPath Condition="'$(RphSdkPath)' == ''">$(MSBuildThisFileDirectory)dependencies\RagePluginHookSDK.dll</RphSdkPath>
   </PropertyGroup>
 
