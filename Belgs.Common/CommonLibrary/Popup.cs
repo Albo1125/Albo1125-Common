@@ -5,7 +5,7 @@ using System.Diagnostics;
 using System.Drawing;
 using System.Windows.Forms;
 
-namespace Albo1125.Common.CommonLibrary
+namespace Belgs.Common.CommonLibrary
 {
     public class Popup
     {

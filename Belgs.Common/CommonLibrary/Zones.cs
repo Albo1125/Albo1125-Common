@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Albo1125.Common.CommonLibrary
+namespace Belgs.Common.CommonLibrary
 {
     public static class Zones
     {

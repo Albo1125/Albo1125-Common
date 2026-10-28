@@ -16,13 +16,14 @@ It is a fork of [Albo1125.Common](https://github.com/Albo1125/Albo1125-Common) b
 * RAGE Plugin Hook version check fixed for RPH 1.100 and newer.
 * SDK-style project that builds with Visual Studio 2022 or `dotnet build`, without the mscoree COM reference.
 * Update checks use HTTPS.
+* Renamed to `Belgs.Common` (assembly and namespace), with its own `Belgs.Common` data folder in the GTA V directory. Plugins built against Albo1125.Common must be rebuilt against Belgs.Common.
 * Bug fixes: stack overflow in `CommonVariables.CarsToSelectFrom` / `MotorbikesToSelectFrom`, and empty key names in `FriendlyKeys` for keys missing from the lookup.
 
 ## Code & building
-1. Copy `LSPD First Response.dll` from your [LSPDFR](https://www.lcpdfr.com/files/file/7792-lspd-first-response/) download into a new **Albo1125.Common/dependencies** folder.
+1. Copy `LSPD First Response.dll` from your [LSPDFR](https://www.lcpdfr.com/files/file/7792-lspd-first-response/) download into a new **Belgs.Common/dependencies** folder (or a `DLLS` folder next to this repository).
 2. Build the solution. The RAGE Plugin Hook SDK comes from NuGet; to use the one from your [RPH download](https://ragepluginhook.net/Downloads.aspx) instead, place `RagePluginHookSDK.dll` in the same `dependencies` folder.
 
-The output is `Albo1125.Common/bin/Release/Albo1125.Common.dll`, which goes in the root of your GTA V folder.
+The output is `Belgs.Common/bin/Release/Belgs.Common.dll`, which goes in the root of your GTA V folder.
 
 ## Licence
 Licensed under the GNU General Public License v3, like the original. See [LICENSE.txt](LICENSE.txt).

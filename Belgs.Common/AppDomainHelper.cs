@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices;
 
-namespace Albo1125.Common
+namespace Belgs.Common
 {
     //Thank you LMS for your help in writing this class.
     [Serializable]

@@ -2,7 +2,7 @@ using Rage;
 using LSPD_First_Response.Mod.API;
 using LSPD_First_Response.Engine.Scripting.Entities;
 
-namespace Albo1125.Common.CommonLibrary
+namespace Belgs.Common.CommonLibrary
 {
     public static class ExtensionMethodsLSPDFR
     {

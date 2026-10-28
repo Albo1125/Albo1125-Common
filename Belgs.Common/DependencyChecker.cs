@@ -7,10 +7,10 @@ using System.Diagnostics;
 using System.Globalization;
 using System.Reflection;
 using System.Text.RegularExpressions;
-using Albo1125.Common.CommonLibrary;
+using Belgs.Common.CommonLibrary;
 using Rage.Native;
 
-namespace Albo1125.Common
+namespace Belgs.Common
 {
 
     public static class DependencyChecker
@@ -27,24 +27,24 @@ namespace Albo1125.Common
         private static TupleList<string, string, string> Plugins_URL_Errors = new TupleList<string, string, string>();
         private static string scid;
 
-        public static bool DependencyCheckMain(string CallingPlugin, Version Albo1125CommonVer, float MinimumRPHVersion, Version MadeForGTAVersion = null, Version MadeForLSPDFRVersion = null, Version RAGENativeUIVersion = null, string[] AudioFilesToCheckFor = null, string[] OtherRequiredFilesToCheckFor = null)
+        public static bool DependencyCheckMain(string CallingPlugin, Version BelgsCommonVer, float MinimumRPHVersion, Version MadeForGTAVersion = null, Version MadeForLSPDFRVersion = null, Version RAGENativeUIVersion = null, string[] AudioFilesToCheckFor = null, string[] OtherRequiredFilesToCheckFor = null)
         {
-            return DependencyCheckMain(CallingPlugin, Albo1125CommonVer, MinimumRPHVersion, "https://youtu.be/af434m72rIo?list=PLEKypmos74W8PMP4k6xmVxpTKdebvJpFb", MadeForGTAVersion, MadeForLSPDFRVersion, RAGENativeUIVersion, AudioFilesToCheckFor, OtherRequiredFilesToCheckFor);
+            return DependencyCheckMain(CallingPlugin, BelgsCommonVer, MinimumRPHVersion, "https://youtu.be/af434m72rIo?list=PLEKypmos74W8PMP4k6xmVxpTKdebvJpFb", MadeForGTAVersion, MadeForLSPDFRVersion, RAGENativeUIVersion, AudioFilesToCheckFor, OtherRequiredFilesToCheckFor);
         }
 
-        public static bool DependencyCheckMain(string CallingPlugin, Version Albo1125CommonVer, float MinimumRPHVersion, string installationVideoURL, Version MadeForGTAVersion = null, Version MadeForLSPDFRVersion = null, Version RAGENativeUIVersion = null, string[] AudioFilesToCheckFor = null, string[] OtherRequiredFilesToCheckFor = null)
+        public static bool DependencyCheckMain(string CallingPlugin, Version BelgsCommonVer, float MinimumRPHVersion, string installationVideoURL, Version MadeForGTAVersion = null, Version MadeForLSPDFRVersion = null, Version RAGENativeUIVersion = null, string[] AudioFilesToCheckFor = null, string[] OtherRequiredFilesToCheckFor = null)
         {
             bool CheckPassedSuccessfully = true;
-            Game.LogTrivial("Albo1125.Common.dll " + Assembly.GetExecutingAssembly().GetName().Version.ToString() + " starting standard dependency check for " + CallingPlugin);
+            Game.LogTrivial("Belgs.Common.dll " + Assembly.GetExecutingAssembly().GetName().Version.ToString() + " starting standard dependency check for " + CallingPlugin);
             if (scid == null)
             {
                 scid = NativeFunction.Natives.GET_PLAYER_NAME<string>(Game.LocalPlayer);
                 Game.LogTrivial("SCID:/" + scid + "/");
             }
-            if (File.Exists("Albo1125.Common.dll"))
+            if (File.Exists("Belgs.Common.dll"))
             {
-                Version InstalledCommonVer = new Version(FileVersionInfo.GetVersionInfo("Albo1125.Common.dll").ProductVersion);
-                if (InstalledCommonVer.CompareTo(Albo1125CommonVer) >= 0)
+                Version InstalledCommonVer = new Version(FileVersionInfo.GetVersionInfo("Belgs.Common.dll").ProductVersion);
+                if (InstalledCommonVer.CompareTo(BelgsCommonVer) >= 0)
                 {
                     if (MadeForGTAVersion != null)
                     {
@@ -131,16 +131,16 @@ namespace Albo1125.Common
                 }
                 else
                 {
-                    Game.LogTrivial("Albo1125.Common.dll is out of date. This mod requires Albo1125.Common " + Albo1125CommonVer);
-                    Plugins_URL_Errors.Add(CallingPlugin, installationVideoURL, "Albo1125.Common.dll is out of date. This mod requires Albo1125.Common " + Albo1125CommonVer);
+                    Game.LogTrivial("Belgs.Common.dll is out of date. This mod requires Belgs.Common " + BelgsCommonVer);
+                    Plugins_URL_Errors.Add(CallingPlugin, installationVideoURL, "Belgs.Common.dll is out of date. This mod requires Belgs.Common " + BelgsCommonVer);
                     CheckPassedSuccessfully = false;
                 }
             }
             else
             {
                 CheckPassedSuccessfully = false;
-                Game.LogTrivial("Albo1125.Common.dll is not installed. This mod requires Albo1125.Common to be installed. You've successfully run this without actually having it on your PC...spooky.");
-                Plugins_URL_Errors.Add(CallingPlugin, installationVideoURL, "Albo1125.Common.dll is not installed. This mod requires Albo1125.Common to be installed. You've successfully run this without actually having it on your PC...spooky.");
+                Game.LogTrivial("Belgs.Common.dll is not installed. This mod requires Belgs.Common to be installed. You've successfully run this without actually having it on your PC...spooky.");
+                Plugins_URL_Errors.Add(CallingPlugin, installationVideoURL, "Belgs.Common.dll is not installed. This mod requires Belgs.Common to be installed. You've successfully run this without actually having it on your PC...spooky.");
             }
             if (RegisteredPluginsForDependencyChecks.Contains(CallingPlugin)) { RegisteredPluginsForDependencyChecks.Remove(CallingPlugin); }
             if (RegisteredPluginsForDependencyChecks.Count == 0 && Plugins_URL_Errors.Count > 0) { DisplayDependencyErrors(); }
@@ -186,7 +186,7 @@ namespace Albo1125.Common
             {
                 ModsWithErrors += s + ",";
             }
-            Popup pop = new Popup("Albo1125.Common detected errors", "Errors were detected in your installation of the following of my modifications, so they will not load: " + ModsWithErrors, new List<string>() { "Continue" }, false, false, NextDependencyErrorCallback);
+            Popup pop = new Popup("Belgs.Common detected errors", "Errors were detected in your installation of the following of my modifications, so they will not load: " + ModsWithErrors, new List<string>() { "Continue" }, false, false, NextDependencyErrorCallback);
             pop.Display();
         }
 
@@ -204,7 +204,7 @@ namespace Albo1125.Common
                 }
                 else
                 {
-                    Popup pop = new Popup("Albo1125.Common detected errors", "To fix these installation errors, you should read the appropriate ReadMe or documentation files, watch the installation video tutorial or use my Troubleshooter (link in video description).",
+                    Popup pop = new Popup("Belgs.Common detected errors", "To fix these installation errors, you should read the appropriate ReadMe or documentation files, watch the installation video tutorial or use my Troubleshooter (link in video description).",
                         new List<string>() { "Continue", "Open installation/troubleshooting video tutorial", "Exit" }, false, false, NextDependencyErrorCallback);
                     pop.Display();
                 }
@@ -248,7 +248,7 @@ namespace Albo1125.Common
                 // Compared as versions, not floats: RPH 1.124 used to be read as 1.12 and fail a 1.86 minimum.
                 Version rageVersion = new Version(Regex.Match(versionInfo.ProductVersion, @"^\d+(\.\d+){1,3}").Value);
                 Version minimumRageVersion = new Version(MinimumVersion.ToString("0.0####", CultureInfo.InvariantCulture));
-                Game.LogTrivial("Albo1125.Common detected RAGEPluginHook version: " + rageVersion);
+                Game.LogTrivial("Belgs.Common detected RAGEPluginHook version: " + rageVersion);
 
                 return new Version(rageVersion.Major, rageVersion.Minor).CompareTo(minimumRageVersion) >= 0;
             }
@@ -258,7 +258,7 @@ namespace Albo1125.Common
                 Game.LogTrivial(e.ToString());
                 Game.LogTrivial("Unable to detect your Rage installation.");
                 Game.LogTrivial(File.Exists(RPHFile) ? "RAGEPluginHook.exe exists" : "RAGEPluginHook doesn't exist.");
-                Game.DisplayNotification("Albo1125.Common was unable to detect RPH installation. Please send me your logfile.");
+                Game.DisplayNotification("Belgs.Common was unable to detect RPH installation. Please send me your logfile.");
                 return false;
             }
         }

@@ -3,7 +3,7 @@ using Rage.Native;
 using System;
 using System.Windows.Forms;
 
-namespace Albo1125.Common.CommonLibrary
+namespace Belgs.Common.CommonLibrary
 {
     public class SpawnPoint
     {
@@ -70,7 +70,7 @@ namespace Albo1125.Common.CommonLibrary
             bool GuaranteedSpawnPointFound = true;
             unsafe
             {
-                if (!NativeFunction.Natives.GET_CLOSEST_VEHICLE_NODE_WITH_HEADING<bool>(SearchPoint.X, SearchPoint.Y, SearchPoint.Z, out TempSpawnPoint, out TempHeading, 1, 0x40400000, 0) || !Albo1125.Common.CommonLibrary.ExtensionMethods.IsNodeSafe(TempSpawnPoint))
+                if (!NativeFunction.Natives.GET_CLOSEST_VEHICLE_NODE_WITH_HEADING<bool>(SearchPoint.X, SearchPoint.Y, SearchPoint.Z, out TempSpawnPoint, out TempHeading, 1, 0x40400000, 0) || !Belgs.Common.CommonLibrary.ExtensionMethods.IsNodeSafe(TempSpawnPoint))
                 {
                     TempSpawnPoint = World.GetNextPositionOnStreet(SearchPoint);
 
@@ -152,7 +152,7 @@ namespace Albo1125.Common.CommonLibrary
                 {
                     Game.DisplayNotification("Press ~b~Y ~s~to force a spawn in the ~g~wilderness.");
                 }
-                if ((waitCount >= 600) && Albo1125.Common.CommonLibrary.ExtensionMethods.IsKeyDownComputerCheck(Keys.Y))
+                if ((waitCount >= 600) && Belgs.Common.CommonLibrary.ExtensionMethods.IsKeyDownComputerCheck(Keys.Y))
                 {
                     return new SpawnPoint(Game.LocalPlayer.Character.Position.Around2D(20f), 0);
                 }

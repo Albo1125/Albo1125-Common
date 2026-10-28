@@ -8,9 +8,9 @@ using System.Drawing;
 using System.Windows.Forms;
 using System.Globalization;
 using System.IO;
-using Albo1125.Common.CommonLibrary;
+using Belgs.Common.CommonLibrary;
 
-namespace Albo1125.Common.CommonLibrary
+namespace Belgs.Common.CommonLibrary
 {
     public class TupleList<T1, T2> : List<Tuple<T1, T2>>
     {

@@ -8,15 +8,15 @@
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
 
-    <AssemblyName>Albo1125.Common</AssemblyName>
-    <RootNamespace>Albo1125.Common</RootNamespace>
+    <AssemblyName>Belgs.Common</AssemblyName>
+    <RootNamespace>Belgs.Common</RootNamespace>
     <Version>6.7.0</Version>
     <AssemblyVersion>6.7.0.0</AssemblyVersion>
     <FileVersion>6.7.0.0</FileVersion>
-    <Description>Common assembly for Albo1125's LSPDFR mods.</Description>
-    <Company>Albo1125</Company>
-    <Product>Albo1125.Common</Product>
-    <Copyright>Copyright © 2019 - Albo1125</Copyright>
+    <Description>Common library for LSPDFR plugins, based on Albo1125.Common by Albo1125.</Description>
+    <Company>DeEchteBelgs</Company>
+    <Product>Belgs.Common</Product>
+    <Copyright>Copyright © 2019 Albo1125, © 2026 DeEchteBelgs</Copyright>
 
     <!-- LSPDFR isn't on NuGet: copy LSPD First Response.dll from your LSPDFR download into dependencies\. -->
     <LspdfrDllPath Condition="'$(LspdfrDllPath)' == ''">$(MSBuildThisFileDirectory)dependencies\LSPD First Response.dll</LspdfrDllPath>
