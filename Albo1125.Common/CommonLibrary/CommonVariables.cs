@@ -1,8 +1,6 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Rage;
 
 namespace Albo1125.Common.CommonLibrary
@@ -26,7 +24,7 @@ namespace Albo1125.Common.CommonLibrary
         {
             get
             {
-                return CarsToSelectFrom.ToArray();
+                return _CarsToSelectFrom.ToArray();
             }
         }
 
@@ -35,7 +33,7 @@ namespace Albo1125.Common.CommonLibrary
         {
             get
             {
-                return MotorbikesToSelectFrom.ToArray();
+                return _MotorBikesToSelectFrom.ToArray();
             }
         }
 

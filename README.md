@@ -1,23 +1,28 @@
-# Albo1125.Common
-Albo1125.Common is a helper plugin for all my other GTA5 and LSPDFR plugins.
+# Belgs Common
+Belgs Common is a helper library for GTA V and LSPDFR plugins, updated for current versions of LSPDFR and RAGE Plugin Hook.
 
-[Download page here](https://www.lcpdfr.com/files/file/10294-albo1125common/)
+It is a fork of [Albo1125.Common](https://github.com/Albo1125/Albo1125-Common) by Albo1125.
 
-[Check out my YouTube channel](https://www.youtube.com/channel/UCSDMQS6b2roa-dZ0vAyaVWg)
+## Credits
+* **[Albo1125](https://github.com/Albo1125)**: original author of Albo1125.Common, which this project is built on.
+  * [Original download page](https://www.lcpdfr.com/files/file/10294-albo1125common/)
+  * [YouTube channel](https://www.youtube.com/channel/UCSDMQS6b2roa-dZ0vAyaVWg)
+  * [Why Albo1125 open sourced their LSPDFR plugins](https://www.lcpdfr.com/forums/topic/87615-open-sourcing-albo1125s-mods-retirement/)
+  * [Donate to Albo1125](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=T9T5RTSWX8PEY)
+* **[PeterU](https://github.com/LSPDFR-PeterU)**: the `FriendlyKeys` class (friendly names for keybinds), licence plate randomisation and ELS vehicle detection.
 
-[Why I'm open sourcing some of my LSPDFR plugins](https://www.lcpdfr.com/forums/topic/87615-open-sourcing-albo1125s-mods-retirement/)
-
-[All donations are welcome and appreciated](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=T9T5RTSWX8PEY)
+## Changes from Albo1125.Common
+* Targets .NET Framework 4.8 and the current LSPDFR, and builds against RAGE Plugin Hook 1.124.
+* RAGE Plugin Hook version check fixed for RPH 1.100 and newer.
+* SDK-style project that builds with Visual Studio 2022 or `dotnet build`, without the mscoree COM reference.
+* Update checks use HTTPS.
+* Bug fixes: stack overflow in `CommonVariables.CarsToSelectFrom` / `MotorbikesToSelectFrom`, and empty key names in `FriendlyKeys` for keys missing from the lookup.
 
 ## Code & building
-Quite simple, clone the repo, place the below dependencies into a new **Albo1125.Common/dependencies** folder. It should then build without issue.
+1. Copy `LSPD First Response.dll` from your [LSPDFR](https://www.lcpdfr.com/files/file/7792-lspd-first-response/) download into a new **Albo1125.Common/dependencies** folder.
+2. Build the solution. The RAGE Plugin Hook SDK comes from NuGet; to use the one from your [RPH download](https://ragepluginhook.net/Downloads.aspx) instead, place `RagePluginHookSDK.dll` in the same `dependencies` folder.
 
-The code could use some refactoring and optimization work which I do not currently have the time for.
-If you feel like it, please feel free to contribute by submitting a Pull Request. 
-They may make it into a release and, of course, you'll be credited appropriately.
-Obviously, feel free to use this as a resource to learn from and improve your programming skills for RPH (credits appreciated, please see licence also if copying/using larger parts of the code).
+The output is `Albo1125.Common/bin/Release/Albo1125.Common.dll`, which goes in the root of your GTA V folder.
 
-## Developer dependencies
-* [LSPD First Response by G17 Media](https://www.lcpdfr.com/files/file/7792-lspd-first-response/)
-* [RAGEPluginHook SDK by MulleDK19](http://ragepluginhook.net/Downloads.aspx)
-* Common Language Runtime Execution Engine 2.4 Library (mscoree). Add reference > COM > Common Language Runtime Execution Engine 2.4 Library (Windows/Microsoft.NET/version/mscoree.tlb)
+## Licence
+Licensed under the GNU General Public License v3, like the original. See [LICENSE.txt](LICENSE.txt).

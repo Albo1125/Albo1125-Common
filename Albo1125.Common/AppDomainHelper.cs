@@ -1,19 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Runtime.InteropServices;
 
 namespace Albo1125.Common
 {
     //Thank you LMS for your help in writing this class.
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Runtime.InteropServices;
-
-    using mscoree;
-
     [Serializable]
     public class AppDomainHelper
     {
@@ -71,18 +63,16 @@ namespace Albo1125.Common
         {
             IList<AppDomain> domains = new List<AppDomain>();
             IntPtr enumHandle = IntPtr.Zero;
-            ICorRuntimeHost host = new CorRuntimeHost();
+            ICorRuntimeHost host = (ICorRuntimeHost)new CorRuntimeHost();
 
             try
             {
                 host.EnumDomains(out enumHandle);
                 while (true)
                 {
-                    object domain;
-                    host.NextDomain(enumHandle, out domain);
+                    host.NextDomain(enumHandle, out object domain);
                     if (domain == null) break;
-                    AppDomain appDomain = (AppDomain)domain;
-                    domains.Add(appDomain);
+                    domains.Add((AppDomain)domain);
                 }
 
                 return domains;
@@ -92,6 +82,30 @@ namespace Albo1125.Common
                 host.CloseEnum(enumHandle);
                 Marshal.ReleaseComObject(host);
             }
+        }
+
+        // Replaces the mscoree COM reference, which only builds with Visual Studio's MSBuild.
+        [ComImport, Guid("CB2F6723-AB3A-11D2-9C40-00C04FA30A3E")]
+        private class CorRuntimeHost { }
+
+        // Slots must stay in vtable order up to CloseEnum; the ones after it are never called.
+        [ComImport, Guid("CB2F6722-AB3A-11D2-9C40-00C04FA30A3E"), InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
+        private interface ICorRuntimeHost
+        {
+            void CreateLogicalThreadState();
+            void DeleteLogicalThreadState();
+            void SwitchInLogicalThreadState(IntPtr pFiberCookie);
+            void SwitchOutLogicalThreadState(out IntPtr pFiberCookie);
+            void LocksHeldByLogicalThread(out uint pCount);
+            void MapFile(IntPtr hFile, out IntPtr hMapAddress);
+            void GetConfiguration(out IntPtr pConfiguration);
+            void Start();
+            void Stop();
+            void CreateDomain([MarshalAs(UnmanagedType.LPWStr)] string pwzFriendlyName, [MarshalAs(UnmanagedType.IUnknown)] object pIdentityArray, [MarshalAs(UnmanagedType.IUnknown)] out object pAppDomain);
+            void GetDefaultDomain([MarshalAs(UnmanagedType.IUnknown)] out object pAppDomain);
+            void EnumDomains(out IntPtr hEnum);
+            void NextDomain(IntPtr hEnum, [MarshalAs(UnmanagedType.IUnknown)] out object pAppDomain);
+            void CloseEnum(IntPtr hEnum);
         }
     }
 }

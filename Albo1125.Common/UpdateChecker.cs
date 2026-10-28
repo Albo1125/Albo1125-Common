@@ -1,20 +1,15 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Rage;
 using System.Diagnostics;
 using System.IO;
-using System.Windows.Forms;
 using System.Xml;
 using System.Reflection;
 using System.Net;
-using System.Drawing;
 using System.Threading;
 using Albo1125.Common.CommonLibrary;
 using System.Xml.Linq;
-using static Albo1125.Common.UpdateEntry;
 
 namespace Albo1125.Common
 {
@@ -139,11 +134,11 @@ namespace Albo1125.Common
                     {
                         try
                         {
-                            string s = client.DownloadString("http://www.lcpdfr.com/applications/downloadsng/interface/api.php?do=checkForUpdates&fileId=" + FileID + "&textOnly=1");
+                            string s = client.DownloadString("https://www.lcpdfr.com/applications/downloadsng/interface/api.php?do=checkForUpdates&fileId=" + FileID + "&textOnly=1");
 
                             NewVersion = new Version(s);
                         }
-                        catch (Exception e) { LSPDFRUpdateAPIRunning = false; Game.LogTrivial("LSPDFR Update API down. Aborting checks."); }
+                        catch (Exception) { LSPDFRUpdateAPIRunning = false; Game.LogTrivial("LSPDFR Update API down. Aborting checks."); }
                     }
                 });
                 FetchVersionThread.Start();
@@ -162,11 +157,11 @@ namespace Albo1125.Common
                 }
 
             }
-            catch (System.Threading.ThreadAbortException e)
+            catch (ThreadAbortException)
             {
 
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 Game.LogTrivial("Error while checking " + ModificationName + " for updates.");
             }
@@ -224,7 +219,7 @@ namespace Albo1125.Common
 
 
                     GetUpdateNodes();
-                    foreach (UpdateEntry entry in AllUpdateEntries.ToArray())
+                    foreach (UpdateEntry entry in UpdateEntry.AllUpdateEntries.ToArray())
                     {
                         CheckForModificationUpdates(entry.Name, new Version(FileVersionInfo.GetVersionInfo(entry.Path).FileVersion), entry.FileID, entry.DownloadLink);
                     }
@@ -237,7 +232,7 @@ namespace Albo1125.Common
                 Game.LogTrivial(e.ToString());
                 Game.DisplayNotification("Error while processing XML files. To fix this, please delete the following folder and its contents: Grand Theft Auto V/Albo1125.Common");
                 Albo1125.Common.CommonLibrary.ExtensionMethods.DisplayPopupTextBoxWithConfirmation("Albo1125.Common", "Error while processing XML files. To fix this, please delete the following folder and its contents: Grand Theft Auto V/Albo1125.Common", false);
-                throw e;
+                throw;
             }
 
             
@@ -280,7 +275,7 @@ namespace Albo1125.Common
                 Game.LogTrivial(e.ToString());
                 Game.DisplayNotification("Error while processing XML files. To fix this, please delete the following folder and its contents: Grand Theft Auto V/Albo1125.Common");
                 ExtensionMethods.DisplayPopupTextBoxWithConfirmation("Albo1125.Common", "Error while processing XML files. To fix this, please delete the following folder and its contents: Grand Theft Auto V/Albo1125.Common", false);
-                throw e;
+                throw;
             }
 
         }
@@ -295,7 +290,7 @@ namespace Albo1125.Common
                 {
                     if (File.Exists(XmlConvert.DecodeName(xdoc.Root.Element("Path").Value.Trim())))
                     {
-                        AllUpdateEntries.Add(new UpdateEntry()
+                        UpdateEntry.AllUpdateEntries.Add(new UpdateEntry()
                         {
                             Name = XmlConvert.DecodeName(xdoc.Root.Element("Name").Value.Trim()),
                             FileID = xdoc.Root.Element("FileID").Value.Trim(),

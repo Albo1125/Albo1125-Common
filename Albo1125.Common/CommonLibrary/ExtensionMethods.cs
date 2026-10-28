@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,9 +6,9 @@ using Rage;
 using Rage.Native;
 using System.Drawing;
 using System.Windows.Forms;
-using Albo1125.Common.CommonLibrary;
 using System.Globalization;
 using System.IO;
+using Albo1125.Common.CommonLibrary;
 
 namespace Albo1125.Common.CommonLibrary
 {
@@ -119,7 +119,7 @@ namespace Albo1125.Common.CommonLibrary
                 System.Windows.Media.FormattedText formatted = new System.Windows.Media.FormattedText(item,
                     CultureInfo.CurrentCulture,
                     System.Windows.FlowDirection.LeftToRight,
-                    new System.Windows.Media.Typeface(fontFamily), emSize, System.Windows.Media.Brushes.Black);
+                    new System.Windows.Media.Typeface(fontFamily), emSize, System.Windows.Media.Brushes.Black, 1.0);
 
 
                 actualWidth += formatted.Width;
@@ -164,11 +164,6 @@ namespace Albo1125.Common.CommonLibrary
             else
             {
                 string strmodKey = ModifierKey.ToString();
-
-                if (strmodKey.EndsWith("ControlKey") | strmodKey.EndsWith("ShiftKey"))
-                {
-                    strmodKey.Replace("Key", "");
-                }
 
                 if (strmodKey.Contains("ControlKey"))
                 {
@@ -371,9 +366,7 @@ namespace Albo1125.Common.CommonLibrary
         public static bool IsNeonLightEnable(this Vehicle vehicle, ENeonLights neonLight)
         {
             ulong IsVehicleNeonLightEnabledHash = 0x8c4b92553e4766a5;
-            if (NativeFunction.CallByHash<bool>(IsVehicleNeonLightEnabledHash, vehicle, (int)neonLight)) return true;
-            else if (!NativeFunction.CallByHash<bool>(IsVehicleNeonLightEnabledHash, vehicle, (int)neonLight)) return false;
-            else return false;
+            return NativeFunction.CallByHash<bool>(IsVehicleNeonLightEnabledHash, vehicle, (int)neonLight);
         }
 
 
@@ -388,14 +381,13 @@ namespace Albo1125.Common.CommonLibrary
         }
         private static unsafe System.Drawing.Color UnsafeGetNeonLightsColor(Vehicle vehicle)
         {
-            Color color;
             int red;
             int green;
             int blue;
             ulong GetVehicleNeonLightsColourHash = 0x7619eee8c886757f;
             NativeFunction.CallByHash<uint>(GetVehicleNeonLightsColourHash, vehicle, &red, &green, &blue);
 
-            return color = Color.FromArgb(red, green, blue);
+            return Color.FromArgb(red, green, blue);
         }
 
 
@@ -469,6 +461,7 @@ namespace Albo1125.Common.CommonLibrary
             }
         }
 
+        /// <summary>
         /// Cache the result of whether a vehicle is an ELS vehicle.
         /// </summary>
         private static Dictionary<Model, bool> vehicleModelELSCache = new Dictionary<Model, bool>();

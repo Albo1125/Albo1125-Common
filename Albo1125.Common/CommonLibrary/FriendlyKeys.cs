@@ -1,8 +1,5 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Albo1125.Common.CommonLibrary
@@ -22,8 +19,10 @@ namespace Albo1125.Common.CommonLibrary
 
         public static string GetFriendlyName(Keys key, bool format = true, char format_color = 'b')
         {
-            string key_name = key.ToString();
-            bool key_found = KeysToFriendlyName.TryGetValue(key, out key_name);
+            if (!KeysToFriendlyName.TryGetValue(key, out string key_name))
+            {
+                key_name = key.ToString();
+            }
             if (format)
             {
                 return "~" + format_color + "~~h~" + key_name + "~h~~w~";

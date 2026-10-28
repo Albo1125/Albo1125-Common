@@ -1,20 +1,14 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.IO;
 using Rage;
 using System.Diagnostics;
 using System.Globalization;
-using System.Windows.Forms;
 using System.Reflection;
-using System.Drawing;
-using System.Threading;
+using System.Text.RegularExpressions;
 using Albo1125.Common.CommonLibrary;
 using Rage.Native;
-using System.Net;
-using Microsoft.Win32;
 
 namespace Albo1125.Common
 {
@@ -235,8 +229,6 @@ namespace Albo1125.Common
             
         }
 
-        private static bool CorrectRPHVersion;
-
         private static bool CheckForRageVersion(float MinimumVersion)
         {
             string RPHFile = "RAGEPluginHook.exe";
@@ -250,41 +242,25 @@ namespace Albo1125.Common
                 }
             }
 
-            var versionInfo = FileVersionInfo.GetVersionInfo(RPHFile);
-            float Rageversion;
             try
             {
-                Rageversion = float.Parse(versionInfo.ProductVersion.Substring(0, 4), CultureInfo.InvariantCulture);
-                Game.LogTrivial("Albo1125.Common detected RAGEPluginHook version: " + Rageversion.ToString());
+                FileVersionInfo versionInfo = FileVersionInfo.GetVersionInfo(RPHFile);
+                // Compared as versions, not floats: RPH 1.124 used to be read as 1.12 and fail a 1.86 minimum.
+                Version rageVersion = new Version(Regex.Match(versionInfo.ProductVersion, @"^\d+(\.\d+){1,3}").Value);
+                Version minimumRageVersion = new Version(MinimumVersion.ToString("0.0####", CultureInfo.InvariantCulture));
+                Game.LogTrivial("Albo1125.Common detected RAGEPluginHook version: " + rageVersion);
 
-                //If user's RPH version is older than the minimum
-                if (Rageversion < MinimumVersion)
-                {
-                    CorrectRPHVersion = false;
-                }
-                //If user's RPH version is (above) the specified minimum
-                else
-                {
-                    CorrectRPHVersion = true;
-                }
+                return new Version(rageVersion.Major, rageVersion.Minor).CompareTo(minimumRageVersion) >= 0;
             }
             catch (Exception e)
             {
                 //If for whatever reason the version couldn't be found.
                 Game.LogTrivial(e.ToString());
                 Game.LogTrivial("Unable to detect your Rage installation.");
-                if (File.Exists("RAGEPluginHook.exe"))
-                {
-                    Game.LogTrivial("RAGEPluginHook.exe exists");
-                }
-                else { Game.LogTrivial("RAGEPluginHook doesn't exist."); }
-                Game.LogTrivial("Rage Version: " + versionInfo.ProductVersion.ToString());
+                Game.LogTrivial(File.Exists(RPHFile) ? "RAGEPluginHook.exe exists" : "RAGEPluginHook doesn't exist.");
                 Game.DisplayNotification("Albo1125.Common was unable to detect RPH installation. Please send me your logfile.");
-                CorrectRPHVersion = false;
-
+                return false;
             }
-
-            return CorrectRPHVersion;
         }
     }
 }
